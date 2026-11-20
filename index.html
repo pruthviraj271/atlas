@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A free-first index of official OpenAI chatbot destinations, including ChatGPT, GPTs, and maker workspaces.">
+  <title>OpenChat Atlas — official chatbot routes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== CSS CUSTOM PROPERTIES ===== */
+    :root {
+      --bg: #0a0a0b;
+      --bg-elevated: #121214;
+      --fg: #fafafa;
+      --fg-muted: #a1a1aa;
+      --fg-subtle: #71717a;
+      --accent: #e8e8e8;
+      --accent-dim: #d4d4d4;
+      --card: #18181b;
+      --card-hover: #1f1f23;
+      --border: #27272a;
+      --border-bright: #3f3f46;
+      --focus: #ffffff;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 180ms ease;
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --max-width: 1100px;
+      --header-h: 64px;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --bg-elevated: #ffffff;
+        --fg: #18181b;
+        --fg-muted: #52525b;
+        --fg-subtle: #71717a;
+        --accent: #18181b;
+        --accent-dim: #3f3f46;
+        --card: #ffffff;
+        --card-hover: #f4f4f5;
+        --border: #e4e4e7;
+        --border-bright: #d4d4d8;
+        --focus: #18181b;
+      }
+    }
+
+    [data-theme="light"] {
+      --bg: #fafafa;
+      --bg-elevated: #ffffff;
+      --fg: #18181b;
+      --fg-muted: #52525b;
+      --fg-subtle: #71717a;
+      --accent: #18181b;
+      --accent-dim: #3f3f46;
+      --card: #ffffff;
+      --card-hover: #f4f4f5;
+      --border: #e4e4e7;
+      --border-bright: #d4d4d8;
+      --focus: #18181b;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0a0a0b;
+      --bg-elevated: #121214;
+      --fg: #fafafa;
+      --fg-muted: #a1a1aa;
+      --fg-subtle: #71717a;
+      --accent: #e8e8e8;
+      --accent-dim: #d4d4d4;
+      --card: #18181b;
+      --card-hover: #1f1f23;
+      --border: #27272a;
+      --border-bright: #3f3f46;
+      --focus: #ffffff;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      font-family: var(--font-display);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; background: none; border: none; cursor: pointer; }
+    input { font: inherit; background: none; border: none; outline: none; color: inherit; }
+    kbd { font-family: var(--font-mono); font-size: 0.75rem; padding: 2px 6px; background: var(--card); border: 1px solid var(--border); border-radius: 4px; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); letter-spacing: -0.01em; }
+    h3 { font-size: clamp(1.125rem, 2vw, 1.375rem); font-weight: 500; }
+    p { color: var(--fg-muted); }
+    .mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-subtle); }
+
+    /* ===== LAYOUT ===== */
+    main { padding-top: var(--header-h); }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; border-top: 1px solid var(--border); }
+    .section:first-of-type { border-top: none; padding-top: 4rem; }
+
+    /* ===== HEADER / NAV ===== */
+    header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); z-index: 100; background: rgba(10,10,11, 0.8); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .logo { font-weight: 700; font-size: 1.125rem; letter-spacing: -0.01em; display: flex; align-items: center; gap: 0.5rem; }
+    .logo mark { background: var(--accent); color: var(--bg); padding: 0 0.375rem; border-radius: 4px; font-size: 0.75rem; font-weight: 500; }
+    .nav-links { display: none; gap: 2rem; }
+    .nav-links a { font-size: 0.875rem; color: var(--fg-muted); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .search-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.875rem; transition: all var(--transition); }
+    .search-btn:hover { border-color: var(--border-bright); background: var(--card-hover); }
+    .search-btn kbd { margin-left: 0.25rem; }
+    .theme-toggle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--card); border: 1px solid var(--border); transition: all var(--transition); }
+    .theme-toggle:hover { border-color: var(--border-bright); background: var(--card-hover); }
+    .theme-toggle svg { width: 20px; height: 20px; stroke: var(--fg); }
+
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+
+    /* ===== HERO ===== */
+    .hero { padding: 6rem 0 4rem; text-align: center; }
+    .hero .mono { display: inline-block; margin-bottom: 1.5rem; opacity: 0.7; }
+    .hero h1 { max-width: 700px; margin: 0 auto 1.5rem; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero > p { max-width: 600px; margin: 0 auto 3rem; font-size: 1.125rem; }
+    .hero-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem; }
+    .stat { text-align: center; }
+    .stat strong { display: block; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1; color: var(--accent); font-family: var(--font-mono); }
+    .stat span { font-size: 0.875rem; color: var(--fg-subtle); }
+    .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 3rem; font-size: 0.875rem; color: var(--fg-subtle); font-family: var(--font-mono); }
+    .hero-meta mark { background: var(--card); padding: 0 0.5rem; border-radius: 4px; }
+    .scroll-hint { margin-top: 4rem; opacity: 0.5; font-size: 0.875rem; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 1.75rem; background: var(--accent); color: var(--bg); font-size: 0.875rem; font-weight: 600; border-radius: var(--radius-sm); transition: all var(--transition); }
+    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-2px); }
+
+    /* ===== FEATURES GRID ===== */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .feature { padding: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); }
+    .feature:hover { border-color: var(--border-bright); background: var(--card-hover); transform: translateY(-2px); }
+    .feature .label { margin-bottom: 0.75rem; }
+    .feature h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .feature p { font-size: 0.875rem; margin: 0; }
+    .feature .meta { margin-top: 1rem; font-size: 0.75rem; color: var(--fg-subtle); font-family: var(--font-mono); }
+
+    /* ===== COMPARISON DESK ===== */
+    .comparison { text-align: center; }
+    .comparison .label { margin-bottom: 1rem; }
+    .comparison h2 { margin-bottom: 1rem; }
+    .comparison > p { max-width: 600px; margin: 0 auto; }
+
+    /* ===== LIBRARY / ATLAS ===== */
+    .library-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+    .library-header h2 { font-size: 1.5rem; }
+    .library-header .count { font-family: var(--font-mono); color: var(--fg-subtle); font-size: 0.875rem; }
+    .search-wrapper { position: relative; flex: 1; max-width: 400px; }
+    .search-input { width: 100%; padding: 0.75rem 1rem 0.75rem 3rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.875rem; transition: all var(--transition); }
+    .search-input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 20%, transparent); }
+    .search-input::placeholder { color: var(--fg-subtle); }
+    .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--fg-subtle); pointer-events: none; }
+    .search-shortcut { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+
+    .atlas-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .atlas-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .atlas-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* ===== CARD ===== */
+    .card { position: relative; display: flex; flex-direction: column; padding: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); overflow: hidden; }
+    .card:hover { border-color: var(--border-bright); background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 12px 32px -12px rgba(0,0,0,0.4); }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-dim)); opacity: 0; transition: opacity var(--transition); }
+    .card:hover::before { opacity: 1; }
+    .card-num { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--fg-subtle); margin-bottom: 0.25rem; }
+    .card-category { font-size: 0.75rem; color: var(--fg-muted); margin-bottom: 0.75rem; font-weight: 500; }
+    .card h3 { margin-bottom: 0.5rem; }
+    .card-desc { font-size: 0.875rem; color: var(--fg-muted); margin-bottom: 1rem; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 1.25rem; }
+    .tag { font-size: 0.65rem; font-weight: 500; padding: 0.25rem 0.5rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 100px; color: var(--fg-muted); transition: all var(--transition); }
+    .card:hover .tag { border-color: var(--border-bright); color: var(--fg); }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); margin-top: auto; }
+    .card-access { font-size: 0.7rem; font-weight: 500; padding: 0.375rem 0.75rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); }
+    .access-free { background: color-mix(in srgb, var(--green) 15%, transparent); color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 30%, transparent); }
+    .access-browse { background: color-mix(in srgb, var(--blue) 15%, transparent); color: var(--blue); border: 1px solid color-mix(in srgb, var(--blue) 30%, transparent); }
+    .access-plan { background: color-mix(in srgb, var(--amber) 15%, transparent); color: var(--amber); border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent); }
+    .access-paid { background: color-mix(in srgb, var(--red) 15%, transparent); color: var(--red); border: 1px solid color-mix(in srgb, var(--red) 30%, transparent); }
+    .access-try { background: color-mix(in srgb, var(--purple) 15%, transparent); color: var(--purple); border: 1px solid color-mix(in srgb, var(--purple) 30%, transparent); }
+    .card-launch { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.625rem 1.25rem; background: var(--accent); color: var(--bg); font-size: 0.8rem; font-weight: 600; border-radius: var(--radius-sm); transition: all var(--transition); }
+    .card-launch:hover { background: var(--accent-dim); transform: translateX(2px); }
+    .card-launch svg { width: 14px; height: 14px; }
+    .card-value { font-size: 0.7rem; color: var(--fg-subtle); font-family: var(--font-mono); margin-top: 0.75rem; text-align: right; }
+
+    /* ===== WHY SECTION ===== */
+    .why { text-align: center; }
+    .why .label { margin-bottom: 1rem; }
+    .why h2 { margin-bottom: 1.5rem; }
+    .why > p { max-width: 600px; margin: 0 auto 3rem; }
+    .why-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: left; max-width: 800px; margin: 0 auto 3rem; }
+    .why-point { padding: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+    .why-point .num { font-family: var(--font-mono); font-size: 2.5rem; font-weight: 700; color: var(--border); line-height: 1; margin-bottom: 1rem; }
+    .why-point strong { display: block; margin-bottom: 0.5rem; font-size: 1.125rem; }
+    .why-point p { font-size: 0.875rem; margin: 0; }
+    .why-note { font-size: 0.875rem; color: var(--fg-subtle); font-family: var(--font-mono); margin-bottom: 2rem; }
+    .why-note mark { background: var(--card); padding: 0 0.5rem; border-radius: 4px; }
+    .signin { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.875rem; color: var(--fg-muted); transition: all var(--transition); }
+    .signin:hover { border-color: var(--border-bright); color: var(--fg); background: var(--card-hover); }
+    .signin input { flex: 1; min-width: 200px; padding: 0.5rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.875rem; }
+    .signin input:focus { border-color: var(--focus); }
+
+    /* ===== FOOTER ===== */
+    footer { padding: 3rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--fg-subtle); font-size: 0.875rem; }
+    footer a { color: var(--fg-muted); text-decoration: underline; text-underline-offset: 2px; }
+    footer a:hover { color: var(--fg); }
+
+    /* ===== UTILITIES ===== */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .hidden { display: none !important; }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header role="banner">
+    <div class="container nav">
+      <a href="/" class="logo" aria-label="OpenChat Atlas home">
+        OpenChat <mark>Atlas</mark>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#atlas">Atlas</a>
+        <a href="#compare">Compare</a>
+        <a href="#why">Why</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="search-btn" aria-label="Search the atlas (⌘K)" id="searchBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Search the atlas
+          <kbd>⌘ K</kbd>
+        </button>
+        <button class="theme-toggle" aria-label="Toggle theme" id="themeToggle">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main id="main" role="main">
+    <!-- --- HERO --->
+    <section class="hero container" aria-labelledby="hero-title">
+      <p class="mono">One index / chatbot field</p>
+      <h1 id="hero-title">Stop searching.<em>Start in the right room.</em></h1>
+      <p>A considered launchpad for ChatGPT, Claude, Gemini, and the wider chatbot field. Free paths first, with the fine print kept close.</p>
+      <a href="#atlas" class="btn-primary">Browse the atlas</a>
+      <div class="hero-stats" aria-label="Atlas statistics">
+        <div class="stat"><strong>35</strong><span>official routes</span></div>
+        <div class="stat"><strong>34</strong><span>free-first picks</span></div>
+        <div class="stat"><strong>01</strong><span>clean starting point</span></div>
+      </div>
+      <div class="hero-meta">
+        <p>OBJECT 01<mark>ATLAS / 2026</mark></p>
+        <p>X / 04.19<mark>OPEN / 01</mark>Z / 12.06</p>
+      </div>
+      <p class="scroll-hint">Find the useful edge → Scroll to explore</p>
+    </section>
+
+    <!-- --- FEATURES --->
+    <section class="section container" aria-labelledby="features-title">
+      <header>
+        <p class="label">FREE ACCESS, WHERE AVAILABLE</p>
+        <h2 id="features-title">Live database</h2>
+      </header>
+      <div class="features">
+        <article class="feature">
+          <p class="label">Official destination links</p>
+          <p>Every launch button points to the provider's official site — no wrappers, no proxies.</p>
+        </article>
+        <article class="feature">
+          <p class="label">Sorted for fast scanning</p>
+          <p>Alphabetical by default, filterable by category. Find your room in seconds.</p>
+        </article>
+        <article class="feature">
+          <p class="label">Updated index</p>
+          <p class="meta">01.09.26</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- --- COMPARISON DESK --->
+    <section class="section container comparison" id="compare" aria-labelledby="compare-title">
+      <p class="label">The comparison desk / ask once</p>
+      <h2 id="compare-title">One question.<br>Three useful starts.</h2>
+      <p>Send the same prompt to the available OpenAI, Anthropic, and Google model voices, then compare their answers side by side.</p>
+    </section>
+
+    <!-- --- THE LIBRARY / ATLAS --->
+    <section class="section container" id="atlas" aria-labelledby="atlas-title">
+      <header class="library-header">
+        <div>
+          <p class="label">The library / A–Z index</p>
+          <h2 id="atlas-title">Pick a room.<br>Make something.</h2>
+        </div>
+        <p class="count" id="resultCount">35 results</p>
+      </header>
+      <p style="margin-bottom: 1.5rem; color: var(--fg-muted); max-width: 600px;">No ranking games. Just verified doors across the chatbot field, arranged alphabetically and by intent so you can get to the conversation faster.</p>
+
+      <div class="search-wrapper" role="search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" class="search-input" placeholder="Search the atlas…" aria-label="Filter chatbots" id="atlasSearch">
+        <kbd class="search-shortcut">⌘ K</kbd>
+      </div>
+
+      <div class="atlas-grid" id="atlasGrid" role="list" aria-label="Chatbot directory">
+        <!-- Cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- --- WHY THIS EXISTS --->
+    <section class="section container why" id="why" aria-labelledby="why-title">
+      <p class="label">02 Why this exists</p>
+      <h2 id="why-title">Less tab hunting.<br>More useful starts.</h2>
+      <p>OpenChat Atlas is a simple index, not a replacement for any provider. We keep the routes official, call out free plans without overpromising, and make the next click obvious.</p>
+
+      <div class="why-points">
+        <article class="why-point">
+          <div class="num">01</div>
+          <strong>Official by default</strong>
+          <p>Every launch button points to an official provider destination, with free-first access notes where available.</p>
+        </article>
+        <article class="why-point">
+          <div class="num">02</div>
+          <strong>Free-first clarity</strong>
+          <p>Access labels distinguish free use, browsing, and paid-by-default tools.</p>
+        </article>
+        <article class="why-point">
+          <div class="num">03</div>
+          <strong>Designed to scan</strong>
+          <p>Search, filter, and bookmark the rooms you return to most.</p>
+        </article>
+      </div>
+
+      <p class="why-note"><mark>ATLAS NOTE</mark> Availability is a moving target. Always check the destination before relying on a feature or limit.</p>
+
+      <label class="signin">
+        <input type="email" placeholder="you@domain.com" aria-label="Email for upload access">
+        <span>Sign in to upload</span>
+      </label>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p>OpenChat Atlas — A curated index of official AI chatbot destinations.</p>
+      <p style="margin-top: 0.5rem;">Not affiliated with OpenAI, Anthropic, Google, or any listed provider. <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </div>
+  </footer>
+
+  <!-- ===== DATA & JAVASCRIPT ===== -->
+  <script>
+    // ===== ATLAS DATA =====
+    const atlasData = [
+      { id: 1, category: "OpenAI", room: "The main room", name: "ChatGPT Free", desc: "Ask, write, learn, plan, and explore with OpenAI's everyday conversational assistant.", tags: ["Chat", "Search", "Voice"], access: "free", accessLabel: "Free to use", value: "Best all-rounder", url: "https://chat.openai.com" },
+      { id: 2, category: "Explore", room: "The collection", name: "GPTs", desc: "Browse purpose-built assistants for writing, research, coding, learning, and more.", tags: ["Specialists", "Browse", "Build"], access: "browse", accessLabel: "Free to browse", value: "Specialized help", url: "https://chat.openai.com/gpts" },
+      { id: 3, category: "OpenAI", room: "The access map", name: "Free plan", desc: "See the current no-cost plan details, included tools, and usage notes before you start.", tags: ["Plan", "Limits", "Tools"], access: "plan", accessLabel: "No-cost plan", value: "Know the rules", url: "https://openai.com/chatgpt/free" },
+      { id: 4, category: "OpenAI", room: "The side door", name: "Desktop apps", desc: "Take ChatGPT to your computer with official desktop downloads for supported platforms.", tags: ["Desktop", "Mac", "Windows"], access: "free", accessLabel: "Free download", value: "Stay in flow", url: "https://openai.com/chatgpt/desktop" },
+      { id: 5, category: "OpenAI", room: "The official front door", name: "ChatGPT home", desc: "A clean route into the ChatGPT product surface when you want the simplest possible start.", tags: ["Official", "Chat", "OpenAI"], access: "free", accessLabel: "Free to use", value: "Official entry", url: "https://chat.openai.com" },
+      { id: 6, category: "Build", room: "The maker bench", name: "Playground", desc: "Experiment with OpenAI models and prompts in the developer workspace. Billing may apply.", tags: ["Prompts", "Models", "API"], access: "paid", accessLabel: "Not free by default", value: "For makers", url: "https://platform.openai.com/playground" },
+      { id: 7, category: "Everyday", room: "The thoughtful room", name: "Claude", desc: "A focused AI assistant from Anthropic for writing, analysis, and careful problem solving.", tags: ["Write", "Analyze", "Think"], access: "free", accessLabel: "Free to start", value: "For clear thinking", url: "https://claude.ai" },
+      { id: 8, category: "Everyday", room: "The Google room", name: "Gemini", desc: "Google's AI assistant for writing, planning, brainstorming, and everyday questions.", tags: ["Plan", "Learn", "Create"], access: "free", accessLabel: "Free to use", value: "A broad assistant", url: "https://gemini.google.com" },
+      { id: 9, category: "Everyday", room: "The Microsoft room", name: "Copilot", desc: "Microsoft's conversational companion for answers, ideas, and getting more done.", tags: ["Answers", "Ideas", "Work"], access: "free", accessLabel: "Free to use", value: "A practical co-pilot", url: "https://copilot.microsoft.com" },
+      { id: 10, category: "Research", room: "The research room", name: "Perplexity", desc: "Research the open web in real time and get concise answers with cited sources.", tags: ["Search", "Sources", "Explore"], access: "free", accessLabel: "Free to start", value: "For source-backed answers", url: "https://perplexity.ai" },
+      { id: 11, category: "Everyday", room: "The real-time room", name: "Grok", desc: "An AI assistant from SpaceXAI for chat, creation, coding, and real-time web answers.", tags: ["Live web", "Voice", "Create"], access: "try", accessLabel: "Free tier", value: "For what's happening now", url: "https://grok.x.ai" },
+      { id: 12, category: "Everyday", room: "The social room", name: "Meta AI", desc: "Meta's assistant for questions, image creation, and everyday tasks across its ecosystem.", tags: ["Ask", "Images", "Tasks"], access: "free", accessLabel: "Free to use", value: "For quick creative help", url: "https://meta.ai" },
+      { id: 13, category: "Explore", room: "The many-model room", name: "Poe", desc: "Explore a large collection of chatbots and compare different AI voices in one place.", tags: ["Many bots", "Compare", "Create"], access: "free", accessLabel: "Free to start", value: "For trying the field", url: "https://poe.com" },
+      { id: 14, category: "Build", room: "The open model room", name: "DeepSeek", desc: "Chat with DeepSeek's general-purpose assistant for reasoning, research, and code.", tags: ["Reason", "Code", "Explore"], access: "free", accessLabel: "Free to use", value: "For technical prompts", url: "https://chat.deepseek.com" },
+      { id: 15, category: "Companions", room: "The friendly room", name: "Anima", desc: "An AI friend for open-ended chat, roleplay, and practicing communication in the browser.", tags: ["Talk", "Roleplay", "Reflect"], access: "free", accessLabel: "Free to start", value: "For a friendly chat", url: "https://animaapp.com" },
+      { id: 16, category: "Build", room: "The coding room", name: "Blackbox AI", desc: "A coding-focused assistant for generating, explaining, and transforming software in the browser.", tags: ["Code", "Build", "Explain"], access: "free", accessLabel: "Free to start", value: "For code work", url: "https://blackbox.ai" },
+      { id: 17, category: "Characters", room: "The character room", name: "Character.AI", desc: "Talk with community-created characters and build imaginative conversational experiences.", tags: ["Roleplay", "Create", "Stories"], access: "free", accessLabel: "Free to start", value: "For playful chats", url: "https://character.ai" },
+      { id: 18, category: "Everyday", room: "The marketing room", name: "Chatsonic", desc: "A free-plan AI chat workspace for research, writing, and marketing-focused creation.", tags: ["Write", "Research", "Create"], access: "plan", accessLabel: "Free plan", value: "For content work", url: "https://writesonic.com/chat" },
+      { id: 19, category: "Everyday", room: "The quick room", name: "DeepAI Chat", desc: "A lightweight web chat for asking questions and exploring generative AI tools.", tags: ["Ask", "Create", "Explore"], access: "free", accessLabel: "Free to start", value: "For quick questions", url: "https://deepai.org/chat" },
+      { id: 20, category: "Open models", room: "The open model room", name: "HuggingChat", desc: "Chat with open-source models and explore a community-powered AI workspace.", tags: ["Open source", "Models", "Explore"], access: "free", accessLabel: "Free to use", value: "For open models", url: "https://huggingface.co/chat" },
+      { id: 21, category: "Research", room: "The reading room", name: "Jina Reader", desc: "Turn web pages into clean, AI-ready reading material with a free, rate-limited reader service.", tags: ["Read", "Research", "Summarize"], access: "try", accessLabel: "Free, rate-limited", value: "For source prep", url: "https://jina.ai/reader" },
+      { id: 22, category: "Everyday", room: "The long-context room", name: "Kimi", desc: "A general assistant for research, writing, and working through long prompts and documents.", tags: ["Research", "Write", "Documents"], access: "free", accessLabel: "Free to start", value: "For long prompts", url: "https://kimi.moonshot.cn" },
+      { id: 23, category: "Everyday", room: "The Mistral room", name: "Le Chat", desc: "Mistral's conversational assistant for writing, analysis, coding, and creative work.", tags: ["Write", "Code", "Analyze"], access: "free", accessLabel: "Free to start", value: "For fast thinking", url: "https://chat.mistral.ai" },
+      { id: 24, category: "Research", room: "The source room", name: "NotebookLM", desc: "Ground conversations in your own sources for research, synthesis, and study workflows.", tags: ["Sources", "Study", "Summarize"], access: "free", accessLabel: "Free to use", value: "For source-grounded work", url: "https://notebooklm.google.com" },
+      { id: 25, category: "Explore", room: "The model switchboard", name: "OpenRouter Chat", desc: "Compare responses from many AI models in one chat surface, with free models available to try.", tags: ["Compare", "Models", "Try"], access: "free", accessLabel: "Free models available", value: "For model comparison", url: "https://openrouter.ai/chat" },
+      { id: 26, category: "Build", room: "The developer room", name: "Phind", desc: "A developer-oriented answer engine for debugging, research, and technical problem solving.", tags: ["Code", "Debug", "Search"], access: "free", accessLabel: "Free to start", value: "For developers", url: "https://phind.com" },
+      { id: 27, category: "Companions", room: "The companion room", name: "Pi", desc: "A conversational AI companion designed for thoughtful everyday dialogue and reflection.", tags: ["Talk", "Reflect", "Voice"], access: "free", accessLabel: "Free to use", value: "For a calmer chat", url: "https://pi.ai" },
+      { id: 28, category: "Open models", room: "The Qwen room", name: "Qwen Chat", desc: "Qwen's official chat workspace for general questions, reasoning, and creative tasks.", tags: ["Reason", "Create", "Explore"], access: "free", accessLabel: "Free to use", value: "For open-model access", url: "https://chat.qwen.ai" },
+      { id: 29, category: "Companions", room: "The personal room", name: "Replika", desc: "An AI companion for chatting, reflecting, and building a continuing conversational relationship.", tags: ["Talk", "Reflect", "Companion"], access: "free", accessLabel: "Free to start", value: "For personal dialogue", url: "https://replika.ai" },
+      { id: 30, category: "Characters", room: "The character lounge", name: "Talkie", desc: "Chat with AI characters for free and discover personalized conversational companions.", tags: ["Characters", "Talk", "Create"], access: "free", accessLabel: "Free to start", value: "For character chat", url: "https://talkie.ai" },
+      { id: 31, category: "Everyday", room: "The private room", name: "Venice", desc: "A privacy-forward AI workspace for text, images, characters, and creative experimentation.", tags: ["Private", "Create", "Images"], access: "try", accessLabel: "Free to try", value: "For private creation", url: "https://venice.ai" },
+      { id: 32, category: "Companions", room: "The wellbeing room", name: "Wysa", desc: "An anonymous AI wellbeing guide for talking through everyday thoughts and practicing supportive exercises.", tags: ["Talk", "Reflect", "Wellbeing"], access: "free", accessLabel: "Free to start", value: "For reflective support", url: "https://wysa.io" },
+      { id: 33, category: "Everyday", room: "The X room", name: "X / Grok", desc: "Open the Grok experience from xAI's official product page and explore its real-time assistant features.", tags: ["Live web", "Chat", "Create"], access: "free", accessLabel: "Free to start", value: "For real-time chat", url: "https://x.ai/grok" },
+      { id: 34, category: "Research", room: "The answer room", name: "You.com", desc: "Search, ask, and work with AI-powered answers across a broad web research workspace.", tags: ["Search", "Sources", "Work"], access: "free", accessLabel: "Free to start", value: "For web answers", url: "https://you.com" },
+      { id: 35, category: "Open models", room: "The GLM room", name: "Z.ai", desc: "A conversational entry point into Z.ai's GLM family and open model ecosystem.", tags: ["GLM", "Reason", "Explore"], access: "free", accessLabel: "Free to start", value: "For model exploration", url: "https://z.ai" }
+    ];
+
+    // ===== ACCESS CLASS MAP =====
+    const accessClass = {
+      free: 'access-free',
+      browse: 'access-browse',
+      plan: 'access-plan',
+      paid: 'access-paid',
+      try: 'access-try'
+    };
+
+    // ===== RENDER CARDS =====
+    function renderCards(items) {
+      const grid = document.getElementById('atlasGrid');
+      const countEl = document.getElementById('resultCount');
+      countEl.textContent = `${items.length} result${items.length !== 1 ? 's' : ''}`;
+
+      grid.innerHTML = items.map(item => `
+        <article class="card" role="listitem" data-id="${item.id}" data-category="${item.category.toLowerCase()}" data-name="${item.name.toLowerCase()}">
+          <p class="card-num">${String(item.id).padStart(2, '0')} / ${item.category}</p>
+          <p class="card-category">${item.room}</p>
+          <h3>${item.name}</h3>
+          <p class="card-desc">${item.desc}</p>
+          <div class="card-tags" aria-label="Features">
+            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+          <div class="card-footer">
+            <span class="card-access ${accessClass[item.access]}">${item.accessLabel}</span>
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="card-launch" aria-label="Launch ${item.name}">
+              Launch
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+          <p class="card-value">${item.value}</p>
+        </article>
+      `).join('');
+    }
+
+    // ===== SEARCH / FILTER =====
+    const searchInput = document.getElementById('atlasSearch');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const filtered = atlasData.filter(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query) ||
+        item.room.toLowerCase().includes(query) ||
+        item.desc.toLowerCase().includes(query) ||
+        item.tags.some(t => t.toLowerCase().includes(query)) ||
+        item.value.toLowerCase().includes(query)
+      );
+      renderCards(filtered);
+    });
+
+    // ===== KEYBOARD SHORTCUT (⌘/Ctrl + K) =====
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      }
+      if (e.key === 'Escape') {
+        searchInput.blur();
+      }
+    });
+
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = themeToggle.querySelector('.sun-icon');
+    const moonIcon = themeToggle.querySelector('.moon-icon');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      sunIcon.style.display = theme === 'dark' ? 'block' : 'none';
+      moonIcon.style.display = theme === 'light' ? 'block' : 'none';
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', targetId);
+        }
+      });
+    });
+
+    // ===== INITIAL RENDER =====
+    renderCards(atlasData);
+
+    // ===== SCROLL REVEAL (IntersectionObserver) =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.card, .feature, .why-point').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
